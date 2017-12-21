@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DbPractice</string>
+    <string name="location_error">定位失败</string>
+</resources>
