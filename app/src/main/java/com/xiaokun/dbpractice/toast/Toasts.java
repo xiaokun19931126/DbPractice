@@ -1,4 +1,4 @@
-package com.xiaokun.dbpractice.util;
+package com.xiaokun.dbpractice.toast;
 
 import android.content.Context;
 import android.widget.Toast;

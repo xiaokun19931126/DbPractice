@@ -39,7 +39,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
+        <activity android:name=".ui.CityActivity"/>
 
         <!-- 高德地图 -->
         <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->

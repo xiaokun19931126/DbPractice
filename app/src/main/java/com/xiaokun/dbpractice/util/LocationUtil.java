@@ -3,6 +3,7 @@ package com.xiaokun.dbpractice.util;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.text.TextUtils;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -17,6 +18,10 @@ import com.amap.api.services.district.DistrictSearch;
 import com.amap.api.services.district.DistrictSearchQuery;
 import com.xiaokun.dbpractice.R;
 import com.xiaokun.dbpractice.config.Constants;
+import com.xiaokun.dbpractice.entity.LocationEntity;
+import com.xiaokun.dbpractice.toast.Toasts;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -36,6 +41,7 @@ public class LocationUtil
     public static AMapLocationClientOption locationOption;
     public static LatLng latLng;
     private static boolean isInit = false;
+    private static LocationEntity locationEntity;
 
     /**
      * 初始化定位
@@ -49,6 +55,7 @@ public class LocationUtil
         locationClient.setLocationOption(locationOption);
         // 设置定位监听
         locationClient.setLocationListener(locationListener);
+        locationEntity = new LocationEntity();
         locationClient.startLocation();
     }
 
@@ -118,8 +125,16 @@ public class LocationUtil
                     String city = location.getCity();
                     String cityCode = location.getCityCode();
                     location.getCityCode();
-                    mPref.put(Constants.LOCATION_CITY,city);
-                    mPref.put(Constants.LOCATION_CITY_CODE,cityCode);
+                    mPref.put(Constants.LOCATION_CITY, city);
+                    mPref.put(Constants.LOCATION_CITY_CODE, cityCode);
+                    if (TextUtils.isEmpty(locationEntity.getCity()) && !TextUtils.isEmpty(city))
+                    {
+                        locationEntity.setCity(city);
+                        locationEntity.setLat(latitude);
+                        locationEntity.setLng(longitude);
+                        EventBus.getDefault().post(locationEntity);
+                    }
+
                     if (!isInit)
                     {
                         // 设置行政区划查询监听
@@ -134,8 +149,8 @@ public class LocationUtil
                     }
                 } else
                 {
-                    mPref.put(Constants.LOCATION_CITY,"武汉市");
-                    mPref.put(Constants.LOCATION_CITY_CODE,"420100");
+                    mPref.put(Constants.LOCATION_CITY, "武汉市");
+                    mPref.put(Constants.LOCATION_CITY_CODE, "420100");
                     Toasts.showSingleShort(AppUtils.getAppContext().getResources().getString(R.string.location_error) + location.getErrorCode());
                 }
             }
@@ -166,6 +181,11 @@ public class LocationUtil
             }
         }
     };
+
+    public LocationEntity getLocationEntity()
+    {
+        return locationEntity;
+    }
 
     public static String sha1(Context context)
     {

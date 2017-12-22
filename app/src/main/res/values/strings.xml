@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">DbPractice</string>
     <string name="location_error">定位失败</string>
+    <string name="input_city_to_search">请输入要查找的城市</string>
+    <string name="not_find_city">抱歉，暂时没有找到相关城市</string>
 </resources>

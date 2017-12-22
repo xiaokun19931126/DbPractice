@@ -1,7 +1,7 @@
 package com.xiaokun.dbpractice.util;
 
 
-import com.exsun.commonlibrary.utils.data.safe.Base64;
+import android.util.Base64;
 
 /**
  * @author yuyh.

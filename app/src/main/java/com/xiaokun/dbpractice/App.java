@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.xiaokun.dbpractice.util.AppUtils;
 import com.xiaokun.dbpractice.util.PrefsUtils;
-import com.xiaokun.dbpractice.util.Toasts;
+import com.xiaokun.dbpractice.toast.Toasts;
 
 /**
  * @author xiaokun
